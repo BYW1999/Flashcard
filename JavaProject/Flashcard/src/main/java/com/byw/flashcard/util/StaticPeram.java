@@ -7,6 +7,7 @@ package com.byw.flashcard.util;
  */
 public class StaticPeram {
 
+
     /**
      * 手机验证部分配置
      */
