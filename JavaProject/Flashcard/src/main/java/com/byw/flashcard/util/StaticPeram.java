@@ -10,6 +10,7 @@ public class StaticPeram {
 
     /**
      * 手机验证部分配置
+     * 测试git
      */
     // 设置超时时间-可自行调整
     final static String defaultConnectTimeout  = "sun.net.client.defaultConnectTimeout";
