@@ -3,6 +3,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+/bin/
+.idea
+target/
+!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -29,3 +33,20 @@ build/
 
 ### VS Code ###
 .vscode/
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+.idea/
+target/
+logs/
+*.iml
+.settings/
+.project
+.classpath
+scope.sql
+*/target/
+*/logs/
