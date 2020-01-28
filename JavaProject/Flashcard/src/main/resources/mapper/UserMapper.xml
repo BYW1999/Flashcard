@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byw.flashcard.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.byw.flashcard.pojo.User" >
+        <result column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="password" property="password" />
+    </resultMap>
+    <select id="findById" resultMap="BaseResultMap">
+        select * from user where id = #{id}
+    </select>
+    <select id="findAll" resultMap="BaseResultMap">
+        select * from user
+    </select>
+    <!--插入用户-->
+    <insert id="insertUser">
+        insert
+        into user(name,phone)
+        values (#{name},#{phone})
+    </insert>
+    <!--判断用户是否存在-->
+    <select id="findUserByPhone" resultMap="BaseResultMap">
+        select *
+        from user
+        where phone=#{phone}
+    </select>
+</mapper>
