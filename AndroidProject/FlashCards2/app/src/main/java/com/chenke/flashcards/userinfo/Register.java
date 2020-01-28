@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.chenke.flashcards.MainActivity;
 import com.chenke.flashcards.R;
 import com.chenke.flashcards.util.TimeCount;
+import com.chenke.flashcards.util.VeriftyCode;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -139,6 +140,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
         time.start();
         //调用服务端接口，将手机号传给服务端
-
+        VeriftyCode veriftyCode = new VeriftyCode();
+        //发送验证码
+        veriftyCode.sendVeriftyCode(phone);
     }
 }
