@@ -151,7 +151,7 @@ public class NumberStudy extends AppCompatActivity implements View.OnClickListen
             // 设置音调，值越大声音越尖（女生），值越小则变成男声,1.0是常规
             textToSpeech.setPitch(1.0f);
             //设定语速 ，默认1.0正常语速
-            textToSpeech.setSpeechRate(1.0f);
+            textToSpeech.setSpeechRate(0.5f);
             //朗读，注意这里三个参数的added in API level 4   四个参数的added in API level 21
             textToSpeech.speak(str, TextToSpeech.QUEUE_FLUSH, null);
         }
