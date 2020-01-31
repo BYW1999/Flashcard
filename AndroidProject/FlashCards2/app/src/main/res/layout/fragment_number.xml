@@ -8,7 +8,7 @@
     <ImageView
         android:src="@mipmap/applelogo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="135dp"/>
 
 <!--    临摹画板-->
 
@@ -21,7 +21,6 @@
 
         <LinearLayout
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="60dp"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -29,14 +28,14 @@
             <Button
                 android:id="@+id/previous"
                 android:text="上一个"
-                style="@style/Button1"
+                style="@style/Button3"
                 />
 
 
             <Button
                 android:id="@+id/next"
                 android:text="下一个"
-                style="@style/Button2"
+                style="@style/Button4"
                 />
 
         </LinearLayout>

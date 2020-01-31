@@ -6,9 +6,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/shape05"
+        android:icon="@drawable/weibo"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/shape05"
+        android:roundIcon="@drawable/weibo"
         android:supportsRtl="true"
         android:theme="@style/AppCompatTheme">
         <!--

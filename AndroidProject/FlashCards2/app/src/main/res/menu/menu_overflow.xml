@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/menu_revoke"
+        android:orderInCategory="1"
+        android:icon="@drawable/revoke"
+        app:showAsAction="never"
+        android:title="撤销"/>
+
+    <item
+        android:id="@+id/menu_clear"
+        android:orderInCategory="8"
+        android:icon="@drawable/clear"
+        app:showAsAction="never"
+        android:title="清除"/>
+    
+    <item
+        android:id="@+id/menu_save"
+        android:orderInCategory="9"
+        android:icon="@drawable/save"
+        app:showAsAction="never"
+        android:title="保存"/>
+    
+    
+</menu>

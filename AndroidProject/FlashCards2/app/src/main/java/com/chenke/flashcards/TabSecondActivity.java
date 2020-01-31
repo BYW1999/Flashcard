@@ -8,8 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.chenke.flashcards.adapter.CopyPagerAdapter;
+import com.chenke.flashcards.util.MenuUtil;
 
 import java.util.ArrayList;
 
@@ -70,5 +74,35 @@ public class TabSecondActivity extends AppCompatActivity implements OnTabSelecte
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
 
+    }
+
+
+    @Override
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        //显示菜单左侧的图标
+        MenuUtil.setOverflowIconVisible(featureId,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //从menu_home.xml中构建布局
+        getMenuInflater().inflate(R.menu.menu_overflow,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == android.R.id.home) {  //点击返回
+            finish();
+        } else if (id == R.id.menu_revoke) {
+            Toast.makeText(this,"撤销",Toast.LENGTH_LONG).show();
+        } else if (id == R.id.menu_clear) {
+            Toast.makeText(this,"清除",Toast.LENGTH_LONG).show();
+        } else if (id == R.id.menu_save) {
+            Toast.makeText(this,"保存",Toast.LENGTH_LONG).show();
+        }
+        return true;
     }
 }

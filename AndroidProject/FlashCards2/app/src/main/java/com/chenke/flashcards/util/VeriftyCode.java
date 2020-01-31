@@ -32,7 +32,7 @@ public class VeriftyCode extends AppCompatActivity {
             @Override
             public void run() {
                 Request request = new Request.Builder()
-                        .url("http://localhost:8080//user/getTestCode?phoneNumbe=" + phone)
+                        .url("http://localhost:8080//user/getTestCode?phoneNumber=" + phone)
                         .build();
                 Call call = okHttpClient.newCall(request);
                 try {
