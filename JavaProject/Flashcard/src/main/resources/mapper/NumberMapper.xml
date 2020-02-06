@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byw.flashcard.mapper.NumberMapper">
+    <resultMap id="NumberResultMap" type="com.byw.flashcard.pojo.Number" >
+        <result column="id" property="id" />
+        <result column="num" property="num" />
+        <result column="audio" property="audio" />
+        <result column="spell" property="spell" />
+        <result column="word" property="word" />
+    </resultMap>
+    <!--插入图片-->
+    <insert id="insertNum">
+        insert
+        into number(num)
+        value (#{num})
+    </insert>
+    <!--查询所有数字-->
+    <select id="findAllNum" resultType="java.lang.String">
+      select num
+      from number
+    </select>
+
+</mapper>

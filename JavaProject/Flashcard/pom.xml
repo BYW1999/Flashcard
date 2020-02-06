@@ -81,6 +81,17 @@
         </plugins>
         <!--<resources>
             <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>-->
+        <!--<resources>
+            <resource>
                 <directory>src/main/resources</directory>
                 &lt;!&ndash; src/main/resources下的指定资源放行 &ndash;&gt;
                 <includes>

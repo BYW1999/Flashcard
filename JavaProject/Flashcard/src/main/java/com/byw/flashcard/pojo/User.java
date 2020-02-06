@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author 王碧云
- * @description: TODO
+ * @description: 用户表
  * @date 2020/1/1/001 19:30
  */
 public class User implements Serializable {
