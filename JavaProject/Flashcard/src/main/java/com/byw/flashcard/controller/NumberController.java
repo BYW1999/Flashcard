@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.byw.flashcard.mapper.NumberMapper;
+import com.byw.flashcard.util.Option;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,7 @@ import java.util.*;
 
 /**
  * @author 王碧云
- * @description: TODO
+ * @description: 数字控制器
  * @date 2020/1/30/030 22:44
  */
 @RestController
@@ -42,7 +43,7 @@ public class NumberController {
         Map<String,Object> map = new HashMap<>();
         JSONObject jsonObject = new JSONObject();
         String[] lastOrNext = {"0","1"};    //"0":上一位 "1"下一位
-        Random random = new Random();
+        Random random  = new Random();
         int n = random.nextInt(numList.size());
 
         if (grade.equals("1")){    //5个题目，每道题目4个选项，其中包含一个正确选项和一个错误选项
@@ -116,26 +117,17 @@ public class NumberController {
         Map<String,Object> allMap = new HashMap<>();
         JSONObject jsonObject = new JSONObject();
         Random random = new Random();
+        Option option = new Option();
 
-        if (grade.equals("1")){    //5个题目，每道题目4个选项，其中包含一个正确选项和一个错误选项
-            for(int j=0;j<5;j++){
-                ArrayList<String> optionList = new ArrayList<>();   //错误选项列表
+        if (grade.equals("1")){    //10个题目，每道题目4个选项，其中包含一个正确选项和一个错误选项
+            for(int j=0;j<10;j++){
                 int n = random.nextInt(numList.size());
                 Map<String,Object> map = new HashMap<>();
                 String question = numList.get(n);
                 map.put("question", question);
                 map.put("answer", question);
                 System.out.println("question========="+question);
-                for(int i=0;i<3;i++){
-                    int m = random.nextInt(numList.size());
-                    String error = numList.get(m);
-                    if (!error.equals(question)){
-                        optionList.add(error);
-                    }else {
-                        int error1 = Integer.valueOf(error)+1;
-                        optionList.add(String.valueOf(error1));
-                    }
-                }
+                List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
                 allMap.put(String.valueOf(j+1), map);
             }
@@ -143,7 +135,6 @@ public class NumberController {
         }else if(grade.equals("2")){    //10个数字，选出上一位、下一位
             String[] lastOrNext = {"0","1"};    //"0":上一位 "1"下一位
             for(int o=0;o<10;o++){
-                ArrayList<String> optionList = new ArrayList<>();
                 Map<String,Object> map = new HashMap<>();
                 int j = random.nextInt(lastOrNext.length);
                 String randLN = lastOrNext[j];
@@ -161,16 +152,7 @@ public class NumberController {
                     answer = String.valueOf(Integer.valueOf(question)+1);
                     map.put("answer", answer);
                 }
-                for(int i=0;i<3;i++){
-                    int m = random.nextInt(numList.size());
-                    String error = numList.get(m);
-                    if (!error.equals(answer)){
-                        optionList.add(error);
-                    }else {
-                        int error1 = Integer.valueOf(error)+2;
-                        optionList.add(String.valueOf(error1));
-                    }
-                }
+                List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
                 allMap.put(String.valueOf(o+1), map);
             }
@@ -178,7 +160,6 @@ public class NumberController {
         }else if(grade.equals("3")){    //10个，第二个或者第三个
             String[] lastOrNext = {"0","1","2"};    //"0":上一位 "1"下一位，“2”没有
             for(int o=0;o<10;o++){
-                ArrayList<String> optionList = new ArrayList<>();
                 Map<String,Object> map = new HashMap<>();
                 int j = random.nextInt(lastOrNext.length);
                 String randLN = lastOrNext[j];
@@ -199,16 +180,7 @@ public class NumberController {
                     map.put("question", question);
                     map.put("answer", question);
                 }
-                for(int i=0;i<3;i++){
-                    int m = random.nextInt(numList.size());
-                    String error = numList.get(m);
-                    if (!error.equals(answer)){
-                        optionList.add(error);
-                    }else {
-                        int error1 = Integer.valueOf(error)-2;
-                        optionList.add(String.valueOf(error1));
-                    }
-                }
+                List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
                 allMap.put(String.valueOf(o+1), map);
             }

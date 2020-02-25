@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byw.flashcard.mapper.ProcessMapper">
+    <resultMap id="ProcessResultMap" type="com.byw.flashcard.pojo.Process" >
+        <result column="id" property="id" />
+        <result property="numId" column="numId"/>
+        <result property="patId" column="patId"/>
+        <result property="colorId" column="colorId"/>
+        <result property="module" column="module"/>
+        <association property="userId" javaType="com.byw.flashcard.pojo.User">
+            <id property="userId" column="id"/>
+            <result property="phone" column="phone"/>
+        </association>
+    </resultMap>
+    <sql id="key">
+        <trim suffixOverrides=",">
+            <if test="userId!=0">
+                userId,
+            </if>
+            <if test='type=="number"'>
+                numId,
+            </if>
+            <if test='type=="pattern"'>
+                patId,
+            </if>
+            <if test='type=="color"'>
+                colorId,
+            </if>
+            <if test="module!=0">
+                module,
+            </if>
+        </trim>
+    </sql>
+    <sql id="value">
+        <trim suffixOverrides=",">
+            <if test="userId!=0">
+                #{userId},
+            </if>
+            <if test='type=="number"'>
+                #{rate},
+            </if>
+            <if test='type=="pattern"'>
+                #{rate},
+            </if>
+            <if test='type=="color"'>
+                #{rate},
+            </if>
+            <if test="module!=0">
+                #{module},
+            </if>
+        </trim>
+    </sql>
+    <!--查找用户记录-->
+    <select id="findRecordByUser" resultType="com.byw.flashcard.pojo.Process">
+        select *
+        from process
+        where userId=#{userId} and module=#{module}
+    </select>
+    <!--插入用户记录-->
+    <!--<insert id="insertRecordByNumStudy">
+        insert
+        into process(userId,numId,type)
+        values (#{userId},#{numId},#{type})
+    </insert>
+    <insert id="insertRecordByPatStudy">
+        insert
+        into process(userId,patId,type)
+        values (#{userId},#{patId},#{type})
+    </insert>
+    <insert id="insertRecordByColorStudy">
+        insert
+        into process(userId,colorId,type)
+        values (#{userId},#{colorId},#{type})
+    </insert>-->
+    <insert id="insertRecord">
+        insert into process(<include refid="key"/>) values(<include refid="value"/>)
+    </insert>
+    <!--修改用户记录-->
+    <update id="updateRecord">
+        update process
+        <trim prefix="set" suffixOverrides=",">
+            <if test='type=="number"'>and numId=#{rate},</if>
+            <if test='type=="pattern"'>and patId=#{rate},</if>
+            <if test='type=="color"'>and colorId=#{rate},</if>
+        </trim>
+        WHERE userId=#{userId} and module=#{module}
+    </update>
+    <!--<update id="updateRecordByNumStudy">
+        update process
+        set numId=#{numId}
+        where userId=#{userId} and type=#{type}
+    </update>
+    <update id="updateRecordByPatStudy">
+        update process
+        set numId=#{patId}
+        where userId=#{userId} and type=#{type}
+    </update>
+    <update id="updateRecordByColorStudy">
+        update process
+        set numId=#{colorId}
+        where userId=#{userId} and type=#{type}
+    </update>-->
+    <!--取用户记录-->
+    <select id="findRecord" resultType="com.byw.flashcard.pojo.Process">
+        select *
+        from process
+        where userId=#{userId} and module=#{module}
+    </select>
+</mapper>

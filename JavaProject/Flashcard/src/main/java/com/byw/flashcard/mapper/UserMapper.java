@@ -15,5 +15,6 @@ public interface UserMapper {
     void insertUser(@Param("name") String name,@Param("phone") String phone);
     List<User> findAll();
     User findUserByPhone(@Param("phone") String phone);
+    Long findIdByPhone(String phone);
 
 }
