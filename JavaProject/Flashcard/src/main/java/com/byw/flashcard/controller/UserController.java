@@ -6,6 +6,7 @@ import com.byw.flashcard.pojo.Pattern;
 import com.byw.flashcard.pojo.Process;
 import com.byw.flashcard.pojo.User;
 import com.byw.flashcard.util.PhoneCode;
+import com.byw.flashcard.util.SessionContext;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import jdk.nashorn.internal.ir.debug.PrintVisitor;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    private static String sessionId;
     @Resource
     private UserMapper userMapper;
     @Resource
@@ -49,11 +51,17 @@ public class UserController {
             return "手机号码为空";
         }
         String code = PhoneCode.getPhonemsg(phoneNumber);
-        json.put("phoneNumber", phoneNumber);
+        /*json.put("phoneNumber", phoneNumber);
         json.put("verifyCode", code);//验证码
         System.out.println(code);
         json.put("createTime", System.currentTimeMillis());//当前时间
-        session.setAttribute("verifyCode", json);
+        session.setAttribute("verifyCode", json);*/
+        sessionId = session.getId();
+        System.out.println("sessionId:"+sessionId);
+        json.put("verifyCode", code);//验证码
+        System.out.println(code);
+        json.put("createTime", System.currentTimeMillis());//当前时间
+        session.setAttribute(phoneNumber, json);
         return "success";
     }
 
@@ -85,7 +93,7 @@ public class UserController {
      * @param
      * @return 返回发送结果向前台
      */
-    @RequestMapping("/judgeTestCode")
+    /*@RequestMapping("/judgeTestCode")
     @ResponseBody
     public Object judgeTestCode(HttpServletRequest request,String verifyCode) {
         JSONObject json = (JSONObject)request.getSession().getAttribute("verifyCode");
@@ -96,12 +104,28 @@ public class UserController {
         if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){
             return "验证码过期";
         }
-        /*if((System.currentTimeMillis() - json.getLong("createTime")) > 60){
+        *//*if((System.currentTimeMillis() - json.getLong("createTime")) > 60){
             return "验证码过期";
+        }*//*
+        return "success";
+    }*/
+    @RequestMapping("/judgeTestCode")
+    @ResponseBody
+    public Object judgeTestCode(String phoneNumber,String verifyCode) {
+        SessionContext sessionContext= SessionContext.getInstance();
+        //从自定义session容器中拿到对应session
+        HttpSession session = sessionContext.getSession(sessionId);
+        JSONObject json = (JSONObject)session.getAttribute(phoneNumber);
+        if(!json.getString("verifyCode").equals(verifyCode)){
+            return "验证码错误";
+        }
+        if((System.currentTimeMillis() - json.getLong("createTime")) > 1000 * 60 * 5){
+            return "验证码过期";
+        }
+        //String code= String.valueOf(session.getAttribute(phoneNumber));
+        /*if(!code.equals(verifyCode)){
+            return "验证码错误";
         }*/
-        //将用户信息存入数据库
-
-        //这里省略
         return "success";
     }
 

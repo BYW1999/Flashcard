@@ -46,8 +46,17 @@ public class PatternController {
                 map.put("errorList", errorList);
                 allMap.put(String.valueOf(i+1), map);
             }
-        }else if (grade.equals("2")){   //简单
-
+        }else if (grade.equals("2")){   //中等
+            for(int i=0;i<10;i++){
+                Map<String,Object> map = new HashMap<>();
+                int n = random.nextInt(patList.size());
+                String question = patList.get(n);
+                map.put("question", question);
+                map.put("answer", question);
+                List<String> errorList = option.getErrorList(patList, question);
+                map.put("errorList", errorList);
+                allMap.put(String.valueOf(i+1), map);
+            }
         }else if (grade.equals("3")){   //困难
             List<String> compositeIdList = compositeMapper.findAllId();
             System.out.println(compositeIdList);

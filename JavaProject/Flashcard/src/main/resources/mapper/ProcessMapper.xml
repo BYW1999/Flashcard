@@ -81,9 +81,9 @@
     <update id="updateRecord">
         update process
         <trim prefix="set" suffixOverrides=",">
-            <if test='type=="number"'>and numId=#{rate},</if>
-            <if test='type=="pattern"'>and patId=#{rate},</if>
-            <if test='type=="color"'>and colorId=#{rate},</if>
+            <if test='type=="number"'>numId=#{rate},</if>
+            <if test='type=="pattern"'>patId=#{rate},</if>
+            <if test='type=="color"'>colorId=#{rate},</if>
         </trim>
         WHERE userId=#{userId} and module=#{module}
     </update>
