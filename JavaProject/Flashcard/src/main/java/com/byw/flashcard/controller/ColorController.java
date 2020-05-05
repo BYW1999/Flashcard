@@ -1,5 +1,7 @@
 package com.byw.flashcard.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.byw.flashcard.mapper.ColorMapper;
 import com.byw.flashcard.util.Option;
@@ -22,7 +24,7 @@ public class ColorController {
     private ColorMapper colorMapper;
 
     @RequestMapping("/getColorQuestion")
-    public JSONObject getColorQuestion(@RequestParam(value="grade",defaultValue="") String grade){
+    /*public JSONObject getColorQuestion(@RequestParam(value="grade",defaultValue="") String grade){
         List<String> colorList = colorMapper.findAllColor();
         Map<String,Object> allMap = new HashMap<>();
         Random random = new Random();
@@ -64,5 +66,61 @@ public class ColorController {
         }
         JSONObject jsonObject = new JSONObject(allMap);
         return jsonObject;
+    }*/
+    public JSONArray getColorQuestion(@RequestParam(value="grade",defaultValue="") String grade){
+        List<String> colorList = colorMapper.findAllColor();
+        //Map<String,Object> allMap = new HashMap<>();
+        List<Map<String,Object>> allList = new ArrayList<>();
+        Random random = new Random();
+        Option option = new Option();
+
+        if(grade.equals("1")){  //简单
+            for(int i=0;i<5;i++){
+                Map<String,Object> allMap = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
+                int n = random.nextInt(colorList.size());
+                String question = colorList.get(n);
+                map.put("question", question);
+                map.put("answer", question);
+                List<String> errorList = option.getErrorList(colorList, question);
+                map.put("errorList", errorList);
+                //allMap.put(String.valueOf(i+1), map);
+                allMap.put("id", i+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+            }
+        }else if (grade.equals("2")){   //中等
+            for(int i=0;i<10;i++){
+                Map<String,Object> allMap = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
+                int n = random.nextInt(colorList.size());
+                String question = colorList.get(n);
+                map.put("question", question);
+                map.put("answer", question);
+                List<String> errorList = option.getErrorList(colorList, question);
+                map.put("errorList", errorList);
+                //allMap.put(String.valueOf(i+1), map);
+                allMap.put("id", i+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+            }
+        }else if (grade.equals("3")){   //困难
+            for(int i=0;i<15;i++){
+                Map<String,Object> allMap = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
+                int n = random.nextInt(colorList.size());
+                String question = colorList.get(n);
+                map.put("question", question);
+                map.put("answer", question);
+                List<String> errorList = option.getErrorList(colorList, question);
+                map.put("errorList", errorList);
+                //allMap.put(String.valueOf(i+1), map);
+                allMap.put("id", i+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+            }
+        }
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(allList));
+        return array;
     }
 }

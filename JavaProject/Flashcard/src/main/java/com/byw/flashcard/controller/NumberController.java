@@ -111,13 +111,16 @@ public class NumberController {
      * @param grade（1：简单、2：中等、3：困难）
      * @return 题目、正确答案、选项(一次全部获取)
      */
-    @RequestMapping("/getNumQuestion")
+    /*@RequestMapping("/getNumQuestion")
     public JSONObject getNumQuestion(@RequestParam(value="grade",defaultValue="") String grade){
         List<String> numList = numberMapper.findAllNum();
         Map<String,Object> allMap = new HashMap<>();
+        //Map<String,Object> mapList = new HashMap<>();
         JSONObject jsonObject = new JSONObject();
         Random random = new Random();
         Option option = new Option();
+        //String id = "id";
+        String value = "value";
 
         if (grade.equals("1")){    //10个题目，每道题目4个选项，其中包含一个正确选项和一个错误选项
             for(int j=0;j<10;j++){
@@ -129,12 +132,16 @@ public class NumberController {
                 System.out.println("question========="+question);
                 List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
-                allMap.put(String.valueOf(j+1), map);
+                //allMap.put(String.valueOf(j+1), map);
+                allMap.put(String.valueOf("value"), map);
+                //mapList.put("id", j+1);
+                //mapList.put("value", allMap);
             }
 
         }else if(grade.equals("2")){    //10个数字，选出上一位、下一位
             String[] lastOrNext = {"0","1"};    //"0":上一位 "1"下一位
             for(int o=0;o<10;o++){
+                //Map<String,Object> allMap = new HashMap<>();
                 Map<String,Object> map = new HashMap<>();
                 int j = random.nextInt(lastOrNext.length);
                 String randLN = lastOrNext[j];
@@ -155,11 +162,13 @@ public class NumberController {
                 List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
                 allMap.put(String.valueOf(o+1), map);
+                //allMap.put("value", map);
             }
 
         }else if(grade.equals("3")){    //10个，第二个或者第三个
             String[] lastOrNext = {"0","1","2"};    //"0":上一位 "1"下一位，“2”没有
             for(int o=0;o<10;o++){
+                //Map<String,Object> allMap = new HashMap<>();
                 Map<String,Object> map = new HashMap<>();
                 int j = random.nextInt(lastOrNext.length);
                 String randLN = lastOrNext[j];
@@ -183,12 +192,114 @@ public class NumberController {
                 List<String> optionList = option.getErrorList(numList, question);
                 map.put("errorList", optionList);
                 allMap.put(String.valueOf(o+1), map);
+                //allMap.put("value", map);
             }
         }else {
             allMap.put("error", "参数异常！");
         }
+        //jsonObject = new JSONObject(allMap);
         jsonObject = new JSONObject(allMap);
         return jsonObject;
+    }*/
+    @RequestMapping("/getNumQuestion")
+    public JSONArray getNumQuestion(@RequestParam(value="grade",defaultValue="") String grade){
+        List<String> numList = numberMapper.findAllNum();
+        //Map<String,Object> allMap = new HashMap<>();
+        //Map<String,Object> mapList = new HashMap<>();
+        List<Map<String,Object>> allList = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        Random random = new Random();
+        Option option = new Option();
+
+        if (grade.equals("1")){    //10个题目，每道题目4个选项，其中包含一个正确选项和一个错误选项
+            for(int j=0;j<10;j++){
+                Map<String,Object> allMap = new HashMap<>();
+                int n = random.nextInt(numList.size());
+                Map<String,Object> map = new HashMap<>();
+                String question = numList.get(n);
+                map.put("question", question);
+                map.put("answer", question);
+                System.out.println("question========="+question);
+                List<String> optionList = option.getErrorList(numList, question);
+                map.put("errorList", optionList);
+                //allMap.put(String.valueOf(j+1), map);
+                allMap.put("id", j+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+            }
+
+        }else if(grade.equals("2")){    //10个数字，选出上一位、下一位
+            String[] lastOrNext = {"0","1"};    //"0":上一位 "1"下一位
+            for(int o=0;o<10;o++){
+                Map<String,Object> allMap = new HashMap<>();
+                //Map<String,Object> allMap = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
+                int j = random.nextInt(lastOrNext.length);
+                String randLN = lastOrNext[j];
+                int n = random.nextInt(numList.size());
+                String question = numList.get(n);
+                String answer = "";
+                if(randLN.equals("0")){    //上一位
+                    String questionDes = question + "的上一个数字是什么？";
+                    map.put("question", questionDes);
+                    answer = String.valueOf(Integer.valueOf(question)-1);
+                    map.put("answer", answer);
+                }else if (randLN.equals("1")){  //下一位
+                    String questionDes = question + "的下一个数字是什么？";
+                    map.put("question", questionDes);
+                    answer = String.valueOf(Integer.valueOf(question)+1);
+                    map.put("answer", answer);
+                }
+                List<String> optionList = option.getErrorList(numList, question);
+                map.put("errorList", optionList);
+                allMap.put("id", o+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+                //allMap.put(String.valueOf(o+1), map);
+                //allMap.put("value", map);
+            }
+
+        }else if(grade.equals("3")){    //10个，第二个或者第三个
+            String[] lastOrNext = {"0","1","2"};    //"0":上一位 "1"下一位，“2”没有
+            for(int o=0;o<10;o++){
+                Map<String,Object> allMap = new HashMap<>();
+                Map<String,Object> map = new HashMap<>();
+                int j = random.nextInt(lastOrNext.length);
+                String randLN = lastOrNext[j];
+                int n = random.nextInt(numList.size());
+                String question = numList.get(n);
+                String answer = "";
+                if(randLN.equals("0")){    //上一位
+                    String questionDes = question + "的上一个数字是什么？";
+                    map.put("question", questionDes);
+                    answer = String.valueOf(Integer.valueOf(question)-1);
+                    map.put("answer", answer);
+                }else if (randLN.equals("1")){  //下一位
+                    String questionDes = question + "的下一个数字是什么？";
+                    map.put("question", questionDes);
+                    answer = String.valueOf(Integer.valueOf(question)+1);
+                    map.put("answer", answer);
+                }else if(randLN.equals("2")){   //不设置上一位或者下一位
+                    map.put("question", question);
+                    map.put("answer", question);
+                }
+                List<String> optionList = option.getErrorList(numList, question);
+                map.put("errorList", optionList);
+                //allMap.put(String.valueOf(o+1), map);
+                allMap.put("id", o+1);
+                allMap.put("value", map);
+                allList.add(allMap);
+                //allMap.put("value", map);
+            }
+        }else {
+            Map<String,Object> allMap = new HashMap<>();
+            allMap.put("error", "参数异常！");
+            allList.add(allMap);
+        }
+        //jsonObject = new JSONObject(allMap);
+        //jsonObject = JSON.toJSONString(allList);
+        JSONArray array= JSONArray.parseArray(JSON.toJSONString(allList));
+        return array;
     }
 
     /**
