@@ -1,0 +1,76 @@
+文件夹 PATH 列表
+卷序列号为 D80D-8D33
+C:.
+│  contents.txt
+│  
+├─java
+│  └─com
+│      └─byw
+│          └─flashcard
+│              │  FlashcardApplication.java
+│              │  
+│              ├─controller
+│              │      NumberController.java
+│              │      PatternController.java
+│              │      UserController.java
+│              │      
+│              ├─mapper
+│              │      CompositeMapper.java
+│              │      NumberMapper.java
+│              │      PatternMapper.java
+│              │      ProcessMapper.java
+│              │      UniteMapper.java
+│              │      UserMapper.java
+│              │      
+│              ├─pojo
+│              │      Composite.java
+│              │      Number.java
+│              │      Pattern.java
+│              │      Process.java
+│              │      Unite.java
+│              │      User.java
+│              │      
+│              └─util
+│                      NumberPic.java
+│                      Option.java
+│                      PhoneCode.java
+│                      StaticPeram.java
+│                      
+└─resources
+    │  application.properties
+    │  
+    ├─config
+    │      mybatis-config.xml
+    │      
+    ├─images
+    │      1.jpg
+    │      10.jpg
+    │      11.jpg
+    │      12.jpg
+    │      13.jpg
+    │      14.jpg
+    │      15.jpg
+    │      16.jpg
+    │      17.jpg
+    │      18.jpg
+    │      19.jpg
+    │      2.jpg
+    │      20.jpg
+    │      3.jpg
+    │      4.jpg
+    │      5.jpg
+    │      6.jpg
+    │      7.jpg
+    │      8.jpg
+    │      9.jpg
+    │      
+    ├─mapper
+    │      CompositeMapper.xml
+    │      NumberMapper.xml
+    │      PatternMapper.xml
+    │      ProcessMapper.xml
+    │      UniteMapper.xml
+    │      UserMapper.xml
+    │      
+    ├─static
+    └─templates

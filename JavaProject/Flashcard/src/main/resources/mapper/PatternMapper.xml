@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.byw.flashcard.mapper.PatternMapper">
+    <resultMap id="PatternResultMap" type="com.byw.flashcard.pojo.Pattern" >
+        <result column="id" property="id" />
+        <result column="pat" property="pat" />
+        <result column="audio" property="audio" />
+        <result column="spell" property="spell" />
+        <result column="word" property="word" />
+    </resultMap>
+    <!--查询所有图形-->
+    <select id="findAllPat" resultType="java.lang.String">
+      select pat
+      from pattern
+    </select>
+</mapper>
