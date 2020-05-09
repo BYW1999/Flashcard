@@ -229,6 +229,8 @@ public class UserController {
             return -3;
         }
         return Integer.parseInt(String.valueOf(rate));
+
+        HmmJ6CVcnfmOfZC9Lz6JbzQn8rKK5M
     }*/
 
 
